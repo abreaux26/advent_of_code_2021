@@ -7,12 +7,18 @@ module SonarSweep
     end
   end
 
-  def total_of_increasing_measurements
+  def three_measurement_windows
+    measurements.each_cons(3).map do |measurements|
+      measurements.reduce(:+)
+    end
+  end
+
+  def total_of_increasing(set)
     sum = 0
-    measurements.each_with_index do |_, index|
-      if measurements[index + 1].nil?
+    set.each_with_index do |_, index|
+      if set[index + 1].nil?
         return sum
-      elsif measurements[index] < measurements[index + 1]
+      elsif set[index] < set[index + 1]
         sum += 1
       end
     end
