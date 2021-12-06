@@ -27,6 +27,6 @@ module SonarSweep
   private
 
   def get_data
-    file_data = File.read("./lib/day1/puzzle_input.txt").split
+    @_get_data ||= File.read("./lib/day1/puzzle_input.txt").split
   end
 end
