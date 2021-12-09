@@ -24,4 +24,11 @@ RSpec.describe BinaryDiagnostic do
     # expect(binary_diagnostic.power_consumption).to eq 198
     expect(binary_diagnostic.power_consumption).to eq 845186
   end
+
+  it "returns 7" do
+    binary_diagnostic = BinaryDiagnostic.new
+    ogr = binary_diagnostic.oxygen_generator_rating
+
+    expect(ogr).to eq 23
+  end
 end
