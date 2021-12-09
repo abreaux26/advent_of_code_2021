@@ -25,10 +25,26 @@ RSpec.describe BinaryDiagnostic do
     expect(binary_diagnostic.power_consumption).to eq 845186
   end
 
-  it "returns 7" do
+  it "returns the correct oxygen generator rating" do
     binary_diagnostic = BinaryDiagnostic.new
-    ogr = binary_diagnostic.oxygen_generator_rating
+    oxygen_generator_rating = binary_diagnostic.oxygen_generator_rating
 
-    expect(ogr).to eq 23
+    # expect(oxygen_generator_rating).to eq 23
+    expect(oxygen_generator_rating).to eq 1459
+  end
+
+  it "returns the correct CO2 scrubber rating" do
+    binary_diagnostic = BinaryDiagnostic.new
+    co2_scrubber_rating = binary_diagnostic.co2_scrubber_rating
+
+    # expect(co2_scrubber_rating).to eq 10
+    expect(co2_scrubber_rating).to eq 3178
+  end
+
+  it "returns the correct life support rating" do
+    binary_diagnostic = BinaryDiagnostic.new
+
+    # expect(binary_diagnostic.life_support_rating).to eq 230
+    expect(binary_diagnostic.life_support_rating).to eq 4636702
   end
 end
