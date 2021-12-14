@@ -13,4 +13,8 @@ class Number
   def marked?
     @marked
   end
+
+  def unmarked?
+    !marked?
+  end
 end
