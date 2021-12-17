@@ -38,10 +38,9 @@ class GiantSquid
   end
 
   def sum_of_unmarked_numbers(board)
-    numbers = fetch_numbers_on_bingo_board(board)
     unmarked_numbers = fetch_unmarked_numbers
 
-    numbers.select do |number|
+    board.numbers.select do |number|
       unmarked_numbers.include?(number)
     end.reduce(:+)
   end
@@ -50,9 +49,7 @@ class GiantSquid
 
   def all_marked?(numbers_to_check)
     numbers_to_check.all? do |number_to_check|
-      @all_numbers_to_draw.find do |_, number|
-        number.number == number_to_check.to_i
-      end.last.marked?
+      @all_numbers_to_draw[number_to_check].marked?
     end
   end
 
@@ -72,28 +69,15 @@ class GiantSquid
   end
 
   def bingo_across?(board)
-    require "pry";binding.pry if @all_numbers_to_draw["21"].marked?
-    rows_for(board).any? do |row|
+    board.rows.any? do |row|
       all_marked?(row)
     end
   end
 
   def bingo_down?(board)
-    require "pry";binding.pry if @all_numbers_to_draw["21"].marked?
-
-    columns_for(board).any? do |column|
+    board.columns.any? do |column|
       all_marked?(column)
     end
-  end
-
-  def columns_for(board)
-    rows_for(board).transpose
-  end
-
-  def fetch_numbers_on_bingo_board(board)
-    board.board.map do |row|
-      row.split(" ").map { |number| number.to_i }
-    end.flatten
   end
 
   def fetch_unmarked_numbers
@@ -108,7 +92,7 @@ class GiantSquid
   end
 
   def giant_squid_condition
-    boards.all?(&:has_bingo?)
+    boards.all?(&:bingo?)
   end
 
   def numbers_to_draw
@@ -127,10 +111,6 @@ class GiantSquid
       @bingo_number = number.to_i if bingo?
       index += 1
     end
-  end
-
-  def rows_for(board)
-    board.board.map { |row| row.split(' ') }
   end
 
   def score(player_bingo)
